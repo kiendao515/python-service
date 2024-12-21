@@ -1,2 +1,6 @@
 fastapi
 uvicorn
+pymongo
+pydantic
+sentence-transformers
+numpy

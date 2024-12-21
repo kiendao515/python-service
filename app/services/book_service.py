@@ -27,7 +27,7 @@ class BookService:
 
         # 2️⃣ Lấy tất cả sách từ MongoDB, bao gồm cả trường 'vector' nếu có
         books = list(
-            self.book_collection.find({}, {"_id": 1, "description": 1, "vector": 1})
+            self.book_collection.find({}, {"_id": 1, "description": 1, "vector": 1,"name":1})
         )
 
         if not books:

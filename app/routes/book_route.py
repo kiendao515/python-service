@@ -27,9 +27,9 @@ async def search_book(
     
     if similar_books:
         response = jsonable_encoder(similar_books, custom_encoder={ObjectId: str})
-        return {"message": "Books found", "books": response}
+        return {"status":True, "message": "Books found", "books": response}
     
-    return {"message": "No similar books found"}
+    return {"status":False, "message": "No similar books found"}
 
 @router.get("/generate/")
 async def generate_vectors(

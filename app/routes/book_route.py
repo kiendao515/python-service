@@ -30,3 +30,31 @@ async def search_book(
         return {"message": "Books found", "books": response}
     
     return {"message": "No similar books found"}
+
+@router.get("/generate/")
+async def generate_vectors(
+    book_collection=Depends(get_book_collection)
+):
+    """API tạo vector cho tất cả sách."""
+
+    print("Generating vectors for all books...")
+    books = book_collection.find({}).to_list(None)  # Convert cursor to list
+    print(books)
+    result = []
+    book_service = BookService(book_collection)
+    for book in books:
+        description = book.get("description", "")
+        vector = book_service.generate_vector_for_description(description)
+
+        book_collection.update_one(
+            {"_id": book["_id"]},
+            {"$set": {"vector": vector}}
+        )
+        
+        result.append({
+            'book_name': book.get('name', ''),
+            'description': description,
+            'vector': vector
+        })
+    
+    return {"books_with_vectors": result}

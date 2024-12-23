@@ -5,4 +5,5 @@ pydantic
 sentence-transformers
 numpy
 python-multipart
-re
+paddleocr
+paddlepaddle

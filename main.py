@@ -8,12 +8,7 @@ import uvicorn
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:5173",  # Domain của frontend
-    "http://127.0.0.1:5173",  # Thêm domain nếu cần
-    "http://localhost:3000",
-    "https://your-frontend-domain.com",
-]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -22,8 +17,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app.include_router(book_router, prefix="/api/v1/books")
-app.include_router(ocr_router, prefix="/api/v1/ocr")
+app.include_router(book_router, prefix="/py/v1/books")
+app.include_router(ocr_router, prefix="/py/v1/ocr")
 
 
 @app.get("/")
@@ -32,4 +27,4 @@ def read_root():
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
